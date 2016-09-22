@@ -6,9 +6,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.Cliente;
+import persistence.ClienteDAO;
+
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
@@ -153,6 +161,13 @@ public class CadastroClienteUI extends JFrame {
 		
 		JButton btnVoltar = new JButton("Voltar");
 		panel_8.add(btnVoltar);
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MenuBibliotecarioUI menuFrame = new MenuBibliotecarioUI();
+				menuFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
 		
 		JPanel panel_9 = new JPanel();
 		contentPane.add(panel_9);
@@ -160,6 +175,24 @@ public class CadastroClienteUI extends JFrame {
 		
 		JButton btnNewButton = new JButton("Cadastrar");
 		panel_9.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String nomeCompleto = textField.getText();
+				String idade = textField_3.getText();
+				String telefone = textField_1.getText();
+				String email = textField_2.getText();
+				String senha = new String(passwordField.getPassword());
+				Cliente clienteAux = new Cliente(nomeCompleto, idade, email, telefone, senha);
+				ClienteDAO dao = new ClienteDAO();
+				dao.cadastrar(clienteAux);
+				JOptionPane.showMessageDialog(panel, "Cliente cadastrado com sucesso!");
+				MenuBibliotecarioUI menuFrame = new MenuBibliotecarioUI();
+				menuFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
+		
+		
 	}
 
 }

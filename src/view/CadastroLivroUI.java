@@ -5,9 +5,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.Cliente;
+import model.Livro;
+import persistence.ClienteDAO;
+import persistence.LivroDAO;
+
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 public class CadastroLivroUI extends JFrame {
@@ -134,6 +144,13 @@ public class CadastroLivroUI extends JFrame {
 		
 		JButton btnVoltar = new JButton("Voltar");
 		panel_8.add(btnVoltar);
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MenuBibliotecarioUI menuFrame = new MenuBibliotecarioUI();
+				menuFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
 		
 		JPanel panel_9 = new JPanel();
 		contentPane.add(panel_9);
@@ -141,6 +158,21 @@ public class CadastroLivroUI extends JFrame {
 		
 		JButton btnNewButton = new JButton("Cadastrar");
 		panel_9.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String nome = textField.getText();
+				String autor = textField_3.getText();
+				String anoPublicacao = textField_1.getText();
+				String sessao = textField_2.getText();
+				Livro livroAux = new Livro(nome, autor, anoPublicacao, sessao);
+				LivroDAO dao = new LivroDAO();
+				dao.cadastrar(livroAux);
+				JOptionPane.showMessageDialog(panel, "Livro cadastrado com sucesso!");
+				MenuBibliotecarioUI menuFrame = new MenuBibliotecarioUI();
+				menuFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
 	}
 
 }

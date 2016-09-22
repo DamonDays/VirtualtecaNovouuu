@@ -5,9 +5,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.Estante;
+import model.Sessao;
+import persistence.EstanteDAO;
+import persistence.SessaoDAO;
+
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 public class CadastroEstanteUI extends JFrame {
@@ -95,6 +105,13 @@ public class CadastroEstanteUI extends JFrame {
 		
 		JButton btnVoltar = new JButton("Voltar");
 		panel_8.add(btnVoltar);
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MenuBibliotecarioUI menuFrame = new MenuBibliotecarioUI();
+				menuFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
 		
 		JPanel panel_9 = new JPanel();
 		contentPane.add(panel_9);
@@ -102,6 +119,19 @@ public class CadastroEstanteUI extends JFrame {
 		
 		JButton btnNewButton = new JButton("Cadastrar");
 		panel_9.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int capacidade = Integer.parseInt(textField_3.getText());
+				int identificacao = Integer.parseInt(textField.getText());
+				Estante estanteAux = new Estante(capacidade, identificacao);
+				EstanteDAO dao = new EstanteDAO();
+				dao.cadastrar(estanteAux);
+				JOptionPane.showMessageDialog(panel, "Estante cadastrada com sucesso!");
+				MenuBibliotecarioUI menuFrame = new MenuBibliotecarioUI();
+				menuFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
 	}
 
 }

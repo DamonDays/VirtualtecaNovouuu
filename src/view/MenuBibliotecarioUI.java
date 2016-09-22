@@ -7,8 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class MenuBibliotecarioUI extends JFrame {
 
@@ -65,24 +69,59 @@ public class MenuBibliotecarioUI extends JFrame {
 		
 		JButton btnNewButton_2 = new JButton("Cadastro de Cliente");
 		contentPane.add(btnNewButton_2);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CadastroClienteUI cadastroClienteFrame = new CadastroClienteUI();
+				cadastroClienteFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
 		
 		JButton btnNewButton_3 = new JButton("Lista de Livro");
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Cadastro de Livro");
 		contentPane.add(btnNewButton_4);
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CadastroLivroUI cadastroLivroFrame = new CadastroLivroUI();
+				cadastroLivroFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
 		
 		JButton btnNewButton_5 = new JButton("Lista de Sess\u00E3o");
 		contentPane.add(btnNewButton_5);
 		
 		JButton btnNewButton_6 = new JButton("Cadastro de Sess\u00E3o");
 		contentPane.add(btnNewButton_6);
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CadastroSessaoUI cadastroSessaoFrame = new CadastroSessaoUI();
+				cadastroSessaoFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
 		
 		JButton btnNewButton_7 = new JButton("Lista de Estante");
 		contentPane.add(btnNewButton_7);
 		
 		JButton btnNewButton = new JButton("Cadastro de Estante");
 		contentPane.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CadastroEstanteUI cadastroEstanteFrame = new CadastroEstanteUI();
+				cadastroEstanteFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
+		
+		btnNewButton_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LoginUI loginFrame = new LoginUI();
+				loginFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
 	}
-
 }

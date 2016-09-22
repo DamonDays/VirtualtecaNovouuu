@@ -10,26 +10,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import interfaces.IPersistence;
-import model.Livro;
+import model.Estante;
 import util.Constantes;
 
-public class LivroDAO implements IPersistence<Livro> {
+public class EstanteDAO implements IPersistence<Estante> {
 
-	private static ArrayList<Livro> livros = new ArrayList<Livro>();
+	private static ArrayList<Estante> estantes = new ArrayList<Estante>();
 
 	@Override
-	public void cadastrar(Livro livro) {
-		livros.add(livro);
+	public void cadastrar(Estante estante) {
+		estantes.add(estante);
 		gravarArquivo();
 	}
 
 	@Override
-	public ArrayList<Livro> listar() {
-		return livros;
+	public ArrayList<Estante> listar() {
+		return estantes;
 	}
 
 	private void gravarArquivo() {
-		File f = new File(Constantes.ARQUIVO_DE_LIVROS);
+		File f = new File(Constantes.ARQUIVO_DE_ESTANTES);
 
 		FileWriter fw = null;
 		BufferedWriter bw = null;
@@ -38,8 +38,8 @@ public class LivroDAO implements IPersistence<Livro> {
 			fw = new FileWriter(f);
 			bw = new BufferedWriter(fw);
 
-			for (Livro l : livros) {
-				bw.write(l.getNome() + ";" + l.getAutor() + ";" + l.getAnoPublicacao() + ";" + l.getSessao());
+			for (Estante e : estantes) {
+				bw.write(e.getIdentificacao() + ";" + e.getCapacidade());
 				bw.newLine();
 			}
 		} catch (IOException e) {
@@ -55,7 +55,7 @@ public class LivroDAO implements IPersistence<Livro> {
 	}
 
 	static {
-		File f = new File(Constantes.ARQUIVO_DE_LIVROS);
+		File f = new File(Constantes.ARQUIVO_DE_ESTANTES);
 
 		FileReader fr = null;
 		BufferedReader br = null;
@@ -70,9 +70,8 @@ public class LivroDAO implements IPersistence<Livro> {
 			String linha;
 			while ((linha = br.readLine()) != null) {
 				String[] dados = linha.split(";");
-
-				Livro c = new Livro(dados[0], dados[1], dados[2], dados[3]);
-				livros.add(c);
+				Estante c = new Estante(Integer.parseInt(dados[0]), Integer.parseInt(dados[2]));
+				estantes.add(c);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -86,7 +85,5 @@ public class LivroDAO implements IPersistence<Livro> {
 				e.printStackTrace();
 			}
 		}
-
 	}
-
 }
